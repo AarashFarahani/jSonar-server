@@ -1,51 +1,66 @@
 package com.jsonar.sample.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
+@ApiModel(value = "Customer", description = "Defines a customer details")
 @Entity
 @Table(name = "customers")
 public class Customer {
+    @ApiModelProperty(value = "Customer No", example = "103")
     @Id
     @Column(name = "customerNumber")
     private Integer customerNumber;
 
+    @ApiModelProperty(value = "Customer Name", example = "Atelier graphique")
     @Column(name = "customerName")
     private String customerName;
 
+    @ApiModelProperty(value = "Contact Last Name", example = "Schmitt")
     @Column(name = "contactLastName")
     private String contactLastName;
 
+    @ApiModelProperty(value = "Contact First Name", example = "Carine ")
     @Column(name = "contactFirstName")
     private String contactFirstName;
 
+    @ApiModelProperty(value = "Phone", example = "40.32.2555")
     @Column(name = "phone")
     private String phone;
 
+    @ApiModelProperty(value = "Address Line 1", example = "4092 Furth Circle")
     @Column(name = "addressLine1")
     private String addressLine1;
 
+    @ApiModelProperty(value = "Address Line 2", example = "Suite 400")
     @Column(name = "addressLine2")
     private String addressLine2;
 
+    @ApiModelProperty(value = "City", example = "Melbourne")
     @Column(name = "city")
     private String city;
 
+    @ApiModelProperty(value = "State", example = "Melbourne")
     @Column(name = "state")
     private String state;
 
+    @ApiModelProperty(value = "Postal Code", example = "3004")
     @Column(name = "postalCode")
     private String postalCode;
 
+    @ApiModelProperty(value = "Country", example = "Australia")
     @Column(name = "country")
     private String country;
 
 //    @Column(name = "salesRepEmployeeNumber")
 //    private Integer salesRepEmployeeNumber;
 
+    @ApiModelProperty(value = "Credit Limit", example = "117300.00")
     @Column(name = "creditLimit")
     private BigDecimal creditLimit;
 
@@ -53,6 +68,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private Set<Order> orders;
 
+//    @ApiModelProperty(value = "Employee Number", example = "1370")
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "salesRepEmployeeNumber", referencedColumnName = "employeeNumber")

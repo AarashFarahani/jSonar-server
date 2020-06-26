@@ -1,38 +1,50 @@
 package com.jsonar.sample.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@ApiModel(value = "Office", description = "Defines a office details")
 @Entity
 @Table(name = "offices")
 public class Office {
+    @ApiModelProperty(value = "Office Code", example = "1")
     @Id
     @Column(name = "officeCode")
     private String officeCode;
 
+    @ApiModelProperty(value = "City", example = "San Francisco")
     @Column(name = "city")
     private String city;
 
+    @ApiModelProperty(value = "Phone", example = "+1 650 219 4782")
     @Column(name = "phone")
     private String phone;
 
+    @ApiModelProperty(value = "Address Line 1", example = "100 Market Street")
     @Column(name = "addressLine1")
     private String addressLine1;
 
+    @ApiModelProperty(value = "Address Line 2", example = "Suite 300")
     @Column(name = "addressLine2")
     private String addressLine2;
 
+    @ApiModelProperty(value = "State", example = "CA")
     @Column(name = "state")
     private String state;
 
+    @ApiModelProperty(value = "Country", example = "USA")
     @Column(name = "country")
     private String country;
 
+    @ApiModelProperty(value = "Postal Code", example = "94080")
     @Column(name = "postalCode")
     private String postalCode;
 
+    @ApiModelProperty(value = "Territory", example = "NA")
     @Column(name = "territory")
     private String territory;
 
