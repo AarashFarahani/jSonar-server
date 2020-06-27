@@ -9,6 +9,8 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Integer> {
-    @Query(value = "SELECT o FROM Order o WHERE o.customer.customerNumber = :customerNumber")
+    @Query(value = "SELECT o FROM Order o " +
+            "WHERE o.customer.customerNumber = :customerNumber " +
+            "order by o.orderDate")
     List<Order> findByCustomerNumber(Integer customerNumber);
 }
