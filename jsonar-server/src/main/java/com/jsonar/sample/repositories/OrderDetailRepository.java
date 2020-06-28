@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrderDetailRepository extends CrudRepository<OrderDetail, Integer> {
-    @Query(value = "SELECT ot FROM OrderDetail ot WHERE ot.order.orderNumber = :orderNumber")
+public interface OrderDetailRepository extends CrudRepository<OrderDetail, String> {
+    @Query(value = "SELECT ot FROM OrderDetail ot " +
+            "WHERE ot.order.orderNumber = :orderNumber")
     List<OrderDetail> findByOrderNumber(Integer orderNumber);
 }

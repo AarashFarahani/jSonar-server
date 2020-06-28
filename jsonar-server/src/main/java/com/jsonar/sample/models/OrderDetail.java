@@ -12,12 +12,12 @@ import java.math.BigDecimal;
 @Table(name = "orderdetails")
 public class OrderDetail {
     @ApiModelProperty(value = "Order Number", example = "10100")
-    @Id
     @Column(name = "orderNumber")
     private Integer orderNumber;
 
-//    @Column(name = "productCode")
-//    private String productCode;
+    @Id
+    @Column(name = "productCode")
+    private String productCode;
 //    @JsonIgnore
     @ApiModelProperty(value = "Product Code", example = "S18_1749")
     @OneToOne(cascade = CascadeType.ALL)
@@ -48,6 +48,14 @@ public class OrderDetail {
 
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     public Product getProduct() {
