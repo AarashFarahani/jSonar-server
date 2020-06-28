@@ -1,6 +1,5 @@
 package com.jsonar.sample.controllers;
 
-import com.jsonar.sample.models.Customer;
 import com.jsonar.sample.models.Order;
 import com.jsonar.sample.models.OrderDetail;
 import com.jsonar.sample.repositories.OrderDetailRepository;
