@@ -20,7 +20,7 @@ public class CustomerController {
     @ApiResponses(value = {
             @ApiResponse(code=200, message="Everything is fine"),
             @ApiResponse(code=400, message="Bad request, ask for support"),
-            @ApiResponse(code=401, message="Your request is unauthorized")
+            @ApiResponse(code=403, message="Forbidden: Access Denied")
     })
     @GetMapping("/customers")
     public ResponseEntity customers() {

@@ -22,7 +22,7 @@ public class OrderController {
     @ApiResponses(value = {
             @ApiResponse(code=200, message="Everything is fine"),
             @ApiResponse(code=400, message="Bad request, ask for support"),
-            @ApiResponse(code=401, message="Your request is unauthorized")
+            @ApiResponse(code=403, message="Forbidden: Access Denied")
     })
     @GetMapping("/customerOrders/{customerNumber}")
     public ResponseEntity customerOrders(@PathVariable Integer customerNumber) {
@@ -33,7 +33,7 @@ public class OrderController {
     @ApiResponses(value = {
             @ApiResponse(code=200, message="Everything is fine"),
             @ApiResponse(code=400, message="Bad request, ask for support"),
-            @ApiResponse(code=401, message="Your request is unauthorized")
+            @ApiResponse(code=403, message="Forbidden: Access Denied")
     })
     @GetMapping("/orderDetails/{orderNumber}")
     public ResponseEntity orderDetails(@PathVariable Integer orderNumber) {
