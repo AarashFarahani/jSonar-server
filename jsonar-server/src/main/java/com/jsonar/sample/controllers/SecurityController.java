@@ -1,5 +1,6 @@
 package com.jsonar.sample.controllers;
 
+import com.jsonar.sample.exception.CoreException;
 import com.jsonar.sample.models.User;
 import com.jsonar.sample.service.UserService;
 import io.swagger.annotations.Api;
@@ -23,7 +24,7 @@ public class SecurityController {
             @ApiResponse(code=400, message="Bad request, something is wrong")
     })
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User user) throws Exception {
+    public ResponseEntity login(@RequestBody User user) throws CoreException {
         User authorizedUser = this.userService.findAuthorizedUser(user.getUsername(), user.getPassword());
         return ResponseEntity.ok(authorizedUser);
     }

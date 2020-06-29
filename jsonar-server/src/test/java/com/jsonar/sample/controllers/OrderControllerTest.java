@@ -3,7 +3,6 @@ package com.jsonar.sample.controllers;
 import com.jsonar.sample.models.Order;
 import com.jsonar.sample.models.OrderDetail;
 import com.jsonar.sample.models.Product;
-import com.jsonar.sample.repositories.CustomerRepository;
 import com.jsonar.sample.repositories.OrderDetailRepository;
 import com.jsonar.sample.repositories.OrderRepository;
 import org.junit.jupiter.api.Test;
@@ -12,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -35,9 +35,11 @@ public class OrderControllerTest {
     @MockBean
     private OrderDetailRepository orderDetailRepository;
 
+    @WithMockUser(value = "Test1")
     @Test
     public void customerOrders() throws Exception {
-        when(this.orderRepository.findByCustomerNumber(128)).thenReturn(this.ordersStub());
+        when(this.orderRepository.findByCustomerNumber(128))
+                .thenReturn(this.ordersStub());
 
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get("/customerOrders/128")
@@ -48,9 +50,11 @@ public class OrderControllerTest {
                 .andExpect(jsonPath("$.[*].comments").value("Check on availability."));
     }
 
+    @WithMockUser(value = "Test1")
     @Test
     public void orderDetails() throws Exception {
-        when(this.orderDetailRepository.findByOrderNumber(10100)).thenReturn(this.orderDetailsStub());
+        when(this.orderDetailRepository.findByOrderNumber(10100))
+                .thenReturn(this.orderDetailsStub());
 
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get("/orderDetails/10100")

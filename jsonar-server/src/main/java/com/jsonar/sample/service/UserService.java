@@ -1,12 +1,13 @@
 package com.jsonar.sample.service;
 
+import com.jsonar.sample.exception.CoreException;
 import com.jsonar.sample.models.User;
+import com.jsonar.sample.security.JwtConfiguration;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -20,8 +21,8 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    @Value("${security.jwt.token.secret-key}") private String secretKey;
-    @Value("${security.jwt.token.expiration}") private long validityInMinutes;
+    @Autowired
+    private JwtConfiguration jwtConfiguration;
 
     private List<User> users = Arrays.asList(
             new User("Test1", "test1@mytest.com"),
@@ -33,15 +34,15 @@ public class UserService {
                 .findAny();
     }
 
-    public User findAuthorizedUser(String username, String password) throws Exception {
+    public User findAuthorizedUser(String username, String password) throws CoreException {
         User user = this.users.stream()
                     .filter(a-> a.getUsername().equalsIgnoreCase(username))
                     .findAny()
-                    .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+                    .orElseThrow(()-> new CoreException("User not found"));
 
         //In real application, check password in hash format
         if (!user.getPassword().equals(password)) {
-            throw new Exception("Password is incorrect");
+            throw new CoreException("Password is incorrect");
         }
 
         user = new User(username, "");//in response we don't need password
@@ -54,14 +55,15 @@ public class UserService {
         claims.put("auth", new SimpleGrantedAuthority(role));
 
         Date now = new Date();
-        LocalDateTime dateTime = LocalDateTime.now().plus(Duration.of(this.validityInMinutes, ChronoUnit.MINUTES));
+        LocalDateTime dateTime = LocalDateTime.now()
+                .plus(Duration.of(this.jwtConfiguration.getExpiration(), ChronoUnit.MINUTES));
         Date validity = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(SignatureAlgorithm.HS256, this.jwtConfiguration.getSecretKey())
                 .compact();
     }
 }

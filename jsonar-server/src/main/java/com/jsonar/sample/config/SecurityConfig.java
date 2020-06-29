@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
@@ -21,22 +22,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtProvider jwtTokenProvider;
 
-    @Bean
-    public AuthenticationManager customAuthenticationManager() throws Exception {
-        return authenticationManager();
-    }
+//    @Bean
+//    public AuthenticationManager customAuthenticationManager() throws Exception {
+//        return authenticationManager();
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Disable CSRF (cross site request forgery)
         http.csrf().disable();
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+
+        http
+                .cors()
+                .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 
         // No session will be created or used by spring security
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login", "/api/login", "/jsonar-server/api/login").permitAll()
                 // Disallow everything else..
                 .anyRequest().authenticated();
 
@@ -44,19 +50,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.apply(new JwtConfigurer(jwtTokenProvider));
     }
 
+//    @Bean
+//    public RequestContextListener requestContextListener(){
+//        return new RequestContextListener();
+//    }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Allow swagger to be accessed without authentication
         web.ignoring()
                 .antMatchers("/swagger-resources/**")
-                .antMatchers("/swagger-ui.html")
-                .antMatchers("/configuration/**")
-                .antMatchers("/webjars/**")
-                .antMatchers("/public")
-
-                // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
-                .and()
-                .ignoring()
-                .antMatchers("/h2-console/**/**");
+                .antMatchers("/swagger-ui.html");
     }
 }

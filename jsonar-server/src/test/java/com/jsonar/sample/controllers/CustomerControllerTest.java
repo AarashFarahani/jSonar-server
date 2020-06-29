@@ -3,16 +3,16 @@ package com.jsonar.sample.controllers;
 import com.jsonar.sample.models.Customer;
 import com.jsonar.sample.repositories.CustomerRepository;
 import static org.hamcrest.collection.IsCollectionWithSize.*;
+
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -29,6 +29,7 @@ public class CustomerControllerTest {
     @MockBean
     private CustomerRepository customerRepository;
 
+    @WithMockUser(value = "Test1")
     @Test
     public void customers() throws Exception {
         when(this.customerRepository.findAll()).thenReturn(this.customersStub());
