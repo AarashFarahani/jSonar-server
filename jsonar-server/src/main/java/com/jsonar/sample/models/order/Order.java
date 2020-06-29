@@ -1,6 +1,7 @@
-package com.jsonar.sample.models;
+package com.jsonar.sample.models.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jsonar.sample.models.customer.Customer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

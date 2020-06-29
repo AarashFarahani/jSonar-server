@@ -1,6 +1,6 @@
 package com.jsonar.sample.security;
 
-import com.jsonar.sample.models.User;
+import com.jsonar.sample.models.security.User;
 import com.jsonar.sample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

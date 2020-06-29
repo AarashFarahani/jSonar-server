@@ -1,4 +1,4 @@
-package com.jsonar.sample.models;
+package com.jsonar.sample.models.security;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +10,6 @@ public class User {
 
     @ApiModelProperty(value = "Password", example = "test1@mytest.com")
     private String password;
-    private String token;
 
     public User(String username, String password) {
         this.username = username;
@@ -31,13 +30,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

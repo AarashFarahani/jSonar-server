@@ -1,6 +1,6 @@
 package com.jsonar.sample.repositories;
 
-import com.jsonar.sample.models.ProductLine;
+import com.jsonar.sample.models.product.ProductLine;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

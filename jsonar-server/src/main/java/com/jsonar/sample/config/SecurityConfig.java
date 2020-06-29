@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
@@ -24,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Bean
 //    public AuthenticationManager customAuthenticationManager() throws Exception {
-//        return authenticationManager();
+//        return super.authenticationManager();
 //    }
 
     @Override
@@ -59,7 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // Allow swagger to be accessed without authentication
         web.ignoring()
-                .antMatchers("/swagger-resources/**")
-                .antMatchers("/swagger-ui.html");
+                .antMatchers("/v2/api-docs",
+                    "/configuration/ui",
+                    "/swagger-ui.html");
     }
 }

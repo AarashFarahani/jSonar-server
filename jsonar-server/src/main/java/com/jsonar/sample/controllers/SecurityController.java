@@ -1,7 +1,8 @@
 package com.jsonar.sample.controllers;
 
 import com.jsonar.sample.exception.CoreException;
-import com.jsonar.sample.models.User;
+import com.jsonar.sample.models.security.TokenResponse;
+import com.jsonar.sample.models.security.User;
 import com.jsonar.sample.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +26,7 @@ public class SecurityController {
     })
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User user) throws CoreException {
-        User authorizedUser = this.userService.findAuthorizedUser(user.getUsername(), user.getPassword());
-        return ResponseEntity.ok(authorizedUser);
+        TokenResponse response = this.userService.findAuthorizedUser(user.getUsername(), user.getPassword());
+        return ResponseEntity.ok(response);
     }
 }

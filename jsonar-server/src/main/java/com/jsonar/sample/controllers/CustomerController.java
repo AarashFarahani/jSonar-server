@@ -1,6 +1,6 @@
 package com.jsonar.sample.controllers;
 
-import com.jsonar.sample.models.Customer;
+import com.jsonar.sample.models.customer.Customer;
 import com.jsonar.sample.repositories.CustomerRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,7 +1,7 @@
 package com.jsonar.sample.controllers;
 
-import com.jsonar.sample.models.Order;
-import com.jsonar.sample.models.OrderDetail;
+import com.jsonar.sample.models.order.Order;
+import com.jsonar.sample.models.order.OrderDetail;
 import com.jsonar.sample.repositories.OrderDetailRepository;
 import com.jsonar.sample.repositories.OrderRepository;
 import io.swagger.annotations.*;

@@ -1,7 +1,8 @@
 package com.jsonar.sample.service;
 
 import com.jsonar.sample.exception.CoreException;
-import com.jsonar.sample.models.User;
+import com.jsonar.sample.models.security.TokenResponse;
+import com.jsonar.sample.models.security.User;
 import com.jsonar.sample.security.JwtConfiguration;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -34,7 +35,7 @@ public class UserService {
                 .findAny();
     }
 
-    public User findAuthorizedUser(String username, String password) throws CoreException {
+    public TokenResponse findAuthorizedUser(String username, String password) throws CoreException {
         User user = this.users.stream()
                     .filter(a-> a.getUsername().equalsIgnoreCase(username))
                     .findAny()
@@ -45,9 +46,8 @@ public class UserService {
             throw new CoreException("Password is incorrect");
         }
 
-        user = new User(username, "");//in response we don't need password
-        user.setToken(this.createToken(username, "admin"));
-        return user;
+        TokenResponse response = new TokenResponse(username, this.createToken(username, "admin"));//in response we don't need password
+        return response;
     }
 
     private String createToken(String username, String role) {

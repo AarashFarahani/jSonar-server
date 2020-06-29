@@ -1,6 +1,6 @@
 package com.jsonar.sample.controllers;
 
-import com.jsonar.sample.models.User;
+import com.jsonar.sample.models.security.TokenResponse;
 import com.jsonar.sample.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +25,12 @@ public class SecurityControllerTest {
 
     @Test
     public void login() throws Exception {
-        User user = new User("Test1", "");
-        user.setToken("knjiyu");
+        TokenResponse response = new TokenResponse("Test1", "");
+        response.setToken("knjiyu");
 
         when(this.userService
                 .findAuthorizedUser("Test1", "test1@mytest.com"))
-                .thenReturn(user);
+                .thenReturn(response);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/login")
