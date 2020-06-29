@@ -19,7 +19,7 @@ public class OrderDetail {
     @Id
     @Column(name = "productCode")
     private String productCode;
-//    @JsonIgnore
+
     @ApiModelProperty(value = "Product Code", example = "S18_1749")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productCode", referencedColumnName = "productCode")

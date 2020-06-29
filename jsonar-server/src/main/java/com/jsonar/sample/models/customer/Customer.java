@@ -58,9 +58,6 @@ public class Customer {
     @Column(name = "country")
     private String country;
 
-//    @Column(name = "salesRepEmployeeNumber")
-//    private Integer salesRepEmployeeNumber;
-
     @ApiModelProperty(value = "Credit Limit", example = "117300.00")
     @Column(name = "creditLimit")
     private BigDecimal creditLimit;
@@ -69,7 +66,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private Set<Order> orders;
 
-//    @ApiModelProperty(value = "Employee Number", example = "1370")
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "salesRepEmployeeNumber", referencedColumnName = "employeeNumber")

@@ -20,9 +20,6 @@ public class Product {
     @Column(name = "productName")
     private String productName;
 
-//    @Column(name = "productLine")
-//    private String productLine;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "productLine", referencedColumnName = "productLine")

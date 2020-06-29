@@ -26,7 +26,6 @@ public class ProductLine {
     @Column(name = "image")
     private byte[] image;
 
-//    @JsonIgnore
     @OneToMany(mappedBy = "productLine")
     private Set<Product> products;
 

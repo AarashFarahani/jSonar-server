@@ -3,9 +3,7 @@ package com.jsonar.sample.config;
 import com.jsonar.sample.security.JwtConfigurer;
 import com.jsonar.sample.security.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -20,11 +18,6 @@ import org.springframework.web.cors.CorsConfiguration;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtProvider jwtTokenProvider;
-
-//    @Bean
-//    public AuthenticationManager customAuthenticationManager() throws Exception {
-//        return super.authenticationManager();
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -48,11 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Apply JWT
         http.apply(new JwtConfigurer(jwtTokenProvider));
     }
-
-//    @Bean
-//    public RequestContextListener requestContextListener(){
-//        return new RequestContextListener();
-//    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {

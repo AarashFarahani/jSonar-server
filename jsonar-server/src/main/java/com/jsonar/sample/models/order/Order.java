@@ -38,16 +38,12 @@ public class Order {
     @Column(name = "comments")
     private String comments;
 
-//    @Column(name = "customerNumber")
-//    private Integer customerNumber;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customerNumber", referencedColumnName = "customerNumber")
     private Customer customer;
 
     @JsonIgnore
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "orderNumber", referencedColumnName = "orderNumber")
     @OneToMany(mappedBy = "order")
     private Set<OrderDetail> orderDetail;
 

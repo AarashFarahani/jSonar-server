@@ -32,9 +32,6 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
-//    @Column(name = "officeCode")
-//    private String officeCode;
-
     @ApiModelProperty(value = "Reports to employee who is in this table (Kinds of self join)", example = "1002")
     @Column(name = "reportsTo")
     private Integer reportsTo;
@@ -47,7 +44,6 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private Set<Customer> customers;
 
-//    @ApiModelProperty(value = "Office Code", example = "1")
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "officeCode", referencedColumnName = "officeCode")
